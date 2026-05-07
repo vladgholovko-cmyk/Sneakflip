@@ -4,43 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SneakFlip</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{background:#0a0a0a;font-family:'DM Mono',monospace;color:#f0f0f0}
+    body{background:#fff;font-family:'Inter',sans-serif;color:#111}
     #root{min-height:100vh}
-    .header{border-bottom:1px solid #1f1f1f;padding:20px 24px 16px;display:flex;align-items:flex-end;gap:12px}
-    .logo{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:#fff;line-height:1}
-    .logo span{color:#39FF14}
-    .tagline{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-    .tabs{display:flex;border-bottom:1px solid #1f1f1f}
-    .tab{flex:1;padding:14px;background:none;border:none;color:#555;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent}
-    .tab.active{color:#39FF14;border-bottom:2px solid #39FF14}
+    .header{background:#111;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:3px}
+    .logo span{color:#E5202E}
+    .tagline{font-size:9px;color:#888;letter-spacing:2px;text-transform:uppercase}
+    .tabs{display:flex;border-bottom:2px solid #f5f5f5;background:#fff}
+    .tab{flex:1;padding:16px;background:none;border:none;color:#888;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-weight:500}
+    .tab.active{color:#111;border-bottom:3px solid #E5202E}
     .body{padding:24px;max-width:600px;margin:0 auto}
-    .label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:6px;display:block}
-    .inp{width:100%;background:#111;border:1px solid #222;color:#f0f0f0;font-family:'DM Mono',monospace;font-size:14px;padding:10px 14px;border-radius:4px;outline:none;margin-bottom:16px}
-    .inp:focus{border-color:#39FF14}
-    .inp::placeholder{color:#333}
+    .label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:6px;display:block;font-weight:500}
+    .inp{width:100%;background:#f5f5f5;border:2px solid transparent;color:#111;font-family:'Inter',monospace;font-size:14px;padding:12px 16px;border-radius:0;outline:none;margin-bottom:16px;transition:border 0.2s}
+    .inp:focus{border:2px solid #111;background:#fff}
+    .inp::placeholder{color:#bbb}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .card{background:#111;border:1px solid #1f1f1f;border-radius:6px;padding:16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
-    .dot{width:8px;height:8px;border-radius:50%}
-    .pname{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#888}
+    .card{background:#f5f5f5;border-left:4px solid #ddd;padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;transition:border 0.2s}
+    .card.pos{border-left:4px solid #E5202E}
+    .card.neg{border-left:4px solid #bbb}
+    .pname{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#111;font-weight:500}
     .profit{text-align:right}
-    .pnum{font-size:20px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
-    .pos{color:#39FF14}.neg{color:#FF4545}.zero{color:#555}
-    .psub{font-size:9px;color:#444;letter-spacing:1px}
-    .sec{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#333;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #1a1a1a;margin-top:8px}
-    .ptabs{display:flex;gap:8px;margin-bottom:16px}
-    .ptab{padding:7px 14px;border-radius:3px;background:#111;border:1px solid #222;color:#555;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;letter-spacing:1px}
-    .ptab.active{background:#39FF14;color:#000;border-color:#39FF14}
-    .btn{width:100%;background:#39FF14;color:#000;border:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;padding:14px;border-radius:4px;cursor:pointer;margin-bottom:16px}
-    .btn:disabled{background:#1a1a1a;color:#333;cursor:not-allowed}
-    .output{background:#0e0e0e;border:1px solid #1f1f1f;border-radius:4px;padding:16px;font-size:12px;line-height:1.7;color:#ccc;white-space:pre-wrap;word-break:break-word;margin-bottom:12px;min-height:100px}
-    .copy{width:100%;background:#111;border:1px solid #222;color:#39FF14;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:11px;border-radius:4px;cursor:pointer}
-    .note{font-size:9px;color:#333;letter-spacing:1px;margin-top:-8px;margin-bottom:16px}
-    .empty{color:#2a2a2a;font-size:11px;text-align:center;padding:30px 0}
+    .pnum{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1px}
+    .pos-t{color:#E5202E}.neg-t{color:#bbb}.zero-t{color:#ccc}
+    .psub{font-size:9px;color:#888;letter-spacing:1px;margin-top:2px}
+    .sec{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;margin-top:8px;font-weight:500}
+    .ptabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+    .ptab{padding:8px 16px;background:#f5f5f5;border:2px solid transparent;color:#888;font-family:'Oswald',sans-serif;font-size:11px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-weight:500;transition:all 0.2s}
+    .ptab.active{background:#111;color:#fff;border-color:#111}
+    .btn{width:100%;background:#E5202E;color:#fff;border:none;font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:4px;padding:16px;cursor:pointer;margin-bottom:16px;text-transform:uppercase;font-weight:600;transition:background 0.2s}
+    .btn:hover{background:#c41a26}
+    .btn:disabled{background:#f0f0f0;color:#bbb;cursor:not-allowed}
+    .output{background:#f5f5f5;border-left:4px solid #E5202E;padding:16px 20px;font-size:12px;line-height:1.8;color:#333;white-space:pre-wrap;word-break:break-word;margin-bottom:12px;min-height:100px;font-family:'Inter',monospace}
+    .copy{width:100%;background:#111;border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:13px;cursor:pointer;font-weight:500;transition:background 0.2s}
+    .copy:hover{background:#333}
+    .note{font-size:9px;color:#bbb;letter-spacing:1px;margin-top:-8px;margin-bottom:16px}
+    .empty{color:#ccc;font-size:11px;text-align:center;padding:30px 0;letter-spacing:1px}
     textarea.inp{resize:vertical;min-height:60px}
     select.inp{appearance:none;cursor:pointer}
+    .swoosh{font-size:22px;line-height:1}
   </style>
 </head>
 <body>
@@ -99,8 +103,11 @@ function App() {
 
   return React.createElement("div",null,
     React.createElement("div",{className:"header"},
-      React.createElement("div",{className:"logo"},"Sneak",React.createElement("span",null,"Flip")),
-      React.createElement("div",{className:"tagline"},"Reseller toolkit · Italia")
+      React.createElement("div",null,
+        React.createElement("div",{className:"logo"},"SNEAK",React.createElement("span",null,"FLIP")),
+        React.createElement("div",{className:"tagline"},"Reseller Toolkit · Italia")
+      ),
+      React.createElement("div",{className:"swoosh"},"✔")
     ),
     React.createElement("div",{className:"tabs"},
       React.createElement("button",{className:"tab "+(tab==="calc"?"active":""),onClick:()=>setTab("calc")},"📊 Margine"),
@@ -124,17 +131,17 @@ function App() {
         PLATFORMS.map(p=>{
           const {profit,margin,fees}=calc(p);
           const n=parseFloat(profit);
-          const cls=n>0?"pos":n<0?"neg":"zero";
+          const cls=n>0?"pos":"neg";
           const has=b>0&&s>0;
-          return React.createElement("div",{className:"card",key:p.id},
-            React.createElement("div",{className:"dot",style:{background:p.color}}),
+          return React.createElement("div",{className:"card "+(has&&n>0?"pos":has&&n<0?"neg":""),key:p.id},
+            React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:p.color}}),
             React.createElement("div",null,
               React.createElement("div",{className:"pname"},p.name),
               has&&React.createElement("div",{className:"note",style:{marginBottom:0,marginTop:4}},"Fees: €"+fees)
             ),
             React.createElement("div",{className:"profit"},
               has ? React.createElement("div",null,
-                React.createElement("div",{className:"pnum "+cls},(n>0?"+":"")+"€"+profit),
+                React.createElement("div",{className:"pnum "+(n>0?"pos-t":n<0?"neg-t":"zero-t")},(n>0?"+":"")+"€"+profit),
                 React.createElement("div",{className:"psub"},margin+"% margine")
               ) : React.createElement("div",{className:"psub"},"—")
             )
