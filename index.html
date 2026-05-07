@@ -1,50 +1,59 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SneakFlip</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:#fff;font-family:'Inter',sans-serif;color:#111}
-    #root{min-height:100vh}
     .header{background:#111;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
     .logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:3px}
     .logo span{color:#E5202E}
     .tagline{font-size:9px;color:#888;letter-spacing:2px;text-transform:uppercase}
-    .tabs{display:flex;border-bottom:2px solid #f5f5f5;background:#fff}
-    .tab{flex:1;padding:16px;background:none;border:none;color:#888;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-weight:500}
+    .lang-bar{background:#f5f5f5;display:flex;justify-content:flex-end;padding:8px 24px;gap:4px;border-bottom:1px solid #eee}
+    .lb{background:none;border:2px solid transparent;font-family:'Oswald',sans-serif;font-size:11px;color:#888;cursor:pointer;padding:4px 10px;letter-spacing:1px;font-weight:500}
+    .lb.active{color:#E5202E;border-bottom:2px solid #E5202E}
+    .tabs{display:flex;border-bottom:2px solid #f5f5f5}
+    .tab{flex:1;padding:14px;background:none;border:none;color:#888;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-weight:500}
     .tab.active{color:#111;border-bottom:3px solid #E5202E}
-    .body{padding:24px;max-width:600px;margin:0 auto}
+    .body{padding:20px;max-width:600px;margin:0 auto}
     .label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:6px;display:block;font-weight:500}
-    .inp{width:100%;background:#f5f5f5;border:2px solid transparent;color:#111;font-family:'Inter',monospace;font-size:14px;padding:12px 16px;border-radius:0;outline:none;margin-bottom:16px;transition:border 0.2s}
+    .inp{width:100%;background:#f5f5f5;border:2px solid transparent;color:#111;font-family:'Inter',sans-serif;font-size:14px;padding:11px 14px;outline:none;margin-bottom:14px;transition:border 0.2s}
     .inp:focus{border:2px solid #111;background:#fff}
     .inp::placeholder{color:#bbb}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .card{background:#f5f5f5;border-left:4px solid #ddd;padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;transition:border 0.2s}
+    .card{background:#f5f5f5;border-left:4px solid #ddd;padding:14px 18px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px}
     .card.pos{border-left:4px solid #E5202E}
-    .card.neg{border-left:4px solid #bbb}
-    .pname{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#111;font-weight:500}
+    .pname{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#111;font-weight:500}
     .profit{text-align:right}
-    .pnum{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1px}
-    .pos-t{color:#E5202E}.neg-t{color:#bbb}.zero-t{color:#ccc}
+    .pnum{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700}
+    .pos-t{color:#E5202E}.neg-t{color:#bbb}
     .psub{font-size:9px;color:#888;letter-spacing:1px;margin-top:2px}
-    .sec{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;margin-top:8px;font-weight:500}
-    .ptabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-    .ptab{padding:8px 16px;background:#f5f5f5;border:2px solid transparent;color:#888;font-family:'Oswald',sans-serif;font-size:11px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-weight:500;transition:all 0.2s}
-    .ptab.active{background:#111;color:#fff;border-color:#111}
-    .btn{width:100%;background:#E5202E;color:#fff;border:none;font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:4px;padding:16px;cursor:pointer;margin-bottom:16px;text-transform:uppercase;font-weight:600;transition:background 0.2s}
-    .btn:hover{background:#c41a26}
+    .sec{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #f0f0f0;margin-top:8px}
+    .ptabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+    .ptab{padding:7px 14px;background:#f5f5f5;border:2px solid transparent;color:#888;font-family:'Oswald',sans-serif;font-size:11px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-weight:500}
+    .ptab.active{background:#111;color:#fff}
+    .btn{width:100%;background:#E5202E;color:#fff;border:none;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:4px;padding:15px;cursor:pointer;margin-bottom:14px;text-transform:uppercase;font-weight:600}
     .btn:disabled{background:#f0f0f0;color:#bbb;cursor:not-allowed}
-    .output{background:#f5f5f5;border-left:4px solid #E5202E;padding:16px 20px;font-size:12px;line-height:1.8;color:#333;white-space:pre-wrap;word-break:break-word;margin-bottom:12px;min-height:100px;font-family:'Inter',monospace}
-    .copy{width:100%;background:#111;border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:13px;cursor:pointer;font-weight:500;transition:background 0.2s}
-    .copy:hover{background:#333}
-    .note{font-size:9px;color:#bbb;letter-spacing:1px;margin-top:-8px;margin-bottom:16px}
-    .empty{color:#ccc;font-size:11px;text-align:center;padding:30px 0;letter-spacing:1px}
+    .output{background:#f5f5f5;border-left:4px solid #E5202E;padding:14px 18px;font-size:12px;line-height:1.8;color:#333;white-space:pre-wrap;word-break:break-word;margin-bottom:10px;min-height:80px}
+    .copy{width:100%;background:#111;border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:12px;cursor:pointer}
+    .note{font-size:9px;color:#bbb;letter-spacing:1px;margin-top:-8px;margin-bottom:14px}
+    .empty{color:#ccc;font-size:11px;text-align:center;padding:24px 0;letter-spacing:1px}
     textarea.inp{resize:vertical;min-height:60px}
     select.inp{appearance:none;cursor:pointer}
-    .swoosh{font-size:22px;line-height:1}
+    .check-item{background:#f5f5f5;padding:14px 18px;margin-bottom:8px;border-left:4px solid #ddd}
+    .check-item.ok{border-left:4px solid #22c55e}
+    .check-item.warn{border-left:4px solid #E5202E}
+    .check-title{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#111;margin-bottom:4px;font-weight:500}
+    .check-desc{font-size:11px;color:#666;line-height:1.6}
+    .check-status{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;margin-top:6px;font-weight:600}
+    .check-status.ok{color:#22c55e}
+    .check-status.warn{color:#E5202E}
+    .verdict{padding:16px 18px;margin-bottom:16px;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;font-weight:600;text-align:center}
+    .verdict.ok{background:#f0fdf4;color:#16a34a;border-left:4px solid #22c55e}
+    .verdict.warn{background:#fff5f5;color:#E5202E;border-left:4px solid #E5202E}
   </style>
 </head>
 <body>
@@ -54,44 +63,123 @@
 <script>
 const {useState} = React;
 
-const PLATFORMS = [
+const LANGS = {
+  it:{
+    tab1:"Margine",tab2:"Annuncio",tab3:"Verifica",
+    prezzi:"Prezzi",acquisto:"Acquisto (€)",vendita:"Vendita (€)",
+    comm:"* Commissioni incluse",profitto:"Profitto per piattaforma",
+    prodotto:"Prodotto",modello:"Modello Nike",taglia:"Taglia EU",prezzo:"Prezzo (€)",
+    cond:"Condizioni",note:"Note extra (opzionale)",piatt:"Piattaforma",
+    genera:"Genera annuncio",output:"Output",empty:"L'annuncio apparirà qui →",
+    copia:"Copia testo",copiato:"✓ Copiato!",fees:"Fees",tagline:"Reseller Toolkit · Italia",
+    conds:["Nuovo","Come nuovo","Ottime condizioni","Buone condizioni"],
+    checkTitle:"Verifica Autenticità Nike",
+    checkSub:"Seleziona cosa hai verificato",
+    checks:[
+      {id:"swoosh",title:"Swoosh",desc:"Il logo deve essere preciso, non storto. Le estremità devono essere sottili e regolari.",ok:"Swoosh perfetto ✓",warn:"Swoosh irregolare — sospetto"},
+      {id:"stitching",title:"Cuciture",desc:"Le cuciture devono essere uniformi, senza fili liberi o punti irregolari.",ok:"Cuciture perfette ✓",warn:"Cuciture irregolari — sospetto"},
+      {id:"label",title:"Etichetta interna",desc:"Deve avere numero di stile, taglia, paese di produzione. Font uniforme, senza sbavature.",ok:"Etichetta ok ✓",warn:"Etichetta sospetta"},
+      {id:"box",title:"Scatola",desc:"Font consistente, codice a barre leggibile, stessa taglia indicata nella scarpa.",ok:"Scatola ok ✓",warn:"Scatola sospetta"},
+      {id:"sole",title:"Suola",desc:"Materiale solido, testo inciso nitido. Nike non usa suole leggere o morbide su modelli firm.",ok:"Suola ok ✓",warn:"Suola sospetta"},
+      {id:"smell",title:"Odore",desc:"Le Nike originali hanno odore di gomma/plastica. Odore chimico forte è segnale negativo.",ok:"Odore ok ✓",warn:"Odore sospetto"},
+    ],
+    verdictOk:"✓ Probabile originale",verdictWarn:"⚠ Potrebbero essere fake",verdictNone:"Seleziona almeno un controllo",
+  },
+  en:{
+    tab1:"Margin",tab2:"Listing",tab3:"Verify",
+    prezzi:"Prices",acquisto:"Buy price (€)",vendita:"Sell price (€)",
+    comm:"* Fees included",profitto:"Profit per platform",
+    prodotto:"Product",modello:"Nike Model",taglia:"EU Size",prezzo:"Price (€)",
+    cond:"Condition",note:"Extra notes (optional)",piatt:"Platform",
+    genera:"Generate listing",output:"Output",empty:"Listing will appear here →",
+    copia:"Copy text",copiato:"✓ Copied!",fees:"Fees",tagline:"Reseller Toolkit · Italy",
+    conds:["New","Like new","Great condition","Good condition"],
+    checkTitle:"Nike Authenticity Check",
+    checkSub:"Select what you have verified",
+    checks:[
+      {id:"swoosh",title:"Swoosh",desc:"Logo must be precise, not crooked. Ends should be thin and regular.",ok:"Perfect swoosh ✓",warn:"Irregular swoosh — suspicious"},
+      {id:"stitching",title:"Stitching",desc:"Stitching must be uniform, no loose threads or irregular points.",ok:"Perfect stitching ✓",warn:"Irregular stitching — suspicious"},
+      {id:"label",title:"Inner label",desc:"Must have style number, size, country of production. Uniform font, no smudges.",ok:"Label ok ✓",warn:"Suspicious label"},
+      {id:"box",title:"Box",desc:"Consistent font, readable barcode, same size as indicated in the shoe.",ok:"Box ok ✓",warn:"Suspicious box"},
+      {id:"sole",title:"Sole",desc:"Solid material, sharp engraved text. Nike does not use light or soft soles on firm models.",ok:"Sole ok ✓",warn:"Suspicious sole"},
+      {id:"smell",title:"Smell",desc:"Original Nikes smell of rubber/plastic. Strong chemical smell is a negative sign.",ok:"Smell ok ✓",warn:"Suspicious smell"},
+    ],
+    verdictOk:"✓ Likely authentic",verdictWarn:"⚠ Might be fake",verdictNone:"Select at least one check",
+  },
+  fr:{
+    tab1:"Marge",tab2:"Annonce",tab3:"Vérifier",
+    prezzi:"Prix",acquisto:"Prix d'achat (€)",vendita:"Prix de vente (€)",
+    comm:"* Commissions incluses",profitto:"Profit par plateforme",
+    prodotto:"Produit",modello:"Modèle Nike",taglia:"Pointure EU",prezzo:"Prix (€)",
+    cond:"État",note:"Notes supplémentaires (optionnel)",piatt:"Plateforme",
+    genera:"Générer l'annonce",output:"Résultat",empty:"L'annonce apparaîtra ici →",
+    copia:"Copier le texte",copiato:"✓ Copié!",fees:"Frais",tagline:"Outil Revendeur · Italie",
+    conds:["Neuf","Comme neuf","Très bon état","Bon état"],
+    checkTitle:"Vérification Authenticité Nike",
+    checkSub:"Sélectionnez ce que vous avez vérifié",
+    checks:[
+      {id:"swoosh",title:"Swoosh",desc:"Le logo doit être précis, pas de travers. Les extrémités doivent être fines et régulières.",ok:"Swoosh parfait ✓",warn:"Swoosh irrégulier — suspect"},
+      {id:"stitching",title:"Coutures",desc:"Les coutures doivent être uniformes, sans fils libres ni points irréguliers.",ok:"Coutures parfaites ✓",warn:"Coutures irrégulières — suspect"},
+      {id:"label",title:"Étiquette intérieure",desc:"Doit avoir numéro de style, pointure, pays de fabrication. Police uniforme, sans bavures.",ok:"Étiquette ok ✓",warn:"Étiquette suspecte"},
+      {id:"box",title:"Boîte",desc:"Police cohérente, code-barres lisible, même pointure indiquée dans la chaussure.",ok:"Boîte ok ✓",warn:"Boîte suspecte"},
+      {id:"sole",title:"Semelle",desc:"Matériau solide, texte gravé net. Nike n'utilise pas de semelles légères ou molles.",ok:"Semelle ok ✓",warn:"Semelle suspecte"},
+      {id:"smell",title:"Odeur",desc:"Les Nike originales sentent le caoutchouc/plastique. Une forte odeur chimique est un signe négatif.",ok:"Odeur ok ✓",warn:"Odeur suspecte"},
+    ],
+    verdictOk:"✓ Probablement authentique",verdictWarn:"⚠ Pourrait être faux",verdictNone:"Sélectionnez au moins une vérification",
+  }
+};
+
+const PLATFORMS=[
   {id:"vinted",name:"Vinted",commission:0.05,fixed:0.7,color:"#09B1BA"},
   {id:"ebay",name:"eBay",commission:0.13,fixed:0.3,color:"#E53238"},
   {id:"subito",name:"Subito.it",commission:0.08,fixed:0,color:"#FF6B00"},
 ];
 
-const TEMPLATES = {
-  vinted:(m,s,c,p,e)=>`🔥 ${m} – Taglia ${s}\n\n✅ Condizione: ${c}\n💶 Prezzo: €${p}\n\n${e?e+"\n\n":""}Acquistati in outlet Nike ufficiale Italia. Originali 100%.\n\n📦 Spedizione rapida con tracking.\n💬 Aperto a offerte!\n\n#nike #${m.toLowerCase().replace(/\s+/g,"")} #sneakers #outlet`,
-  ebay:(m,s,c,p,e)=>`Nike ${m} – Taglia EU ${s} – ${c}\n\nModello: Nike ${m}\nTaglia EU: ${s}\nCondizione: ${c}\n${e?"Note: "+e+"\n":""}\n📦 Spedizione con tracking\n↩️ Reso entro 30 giorni\n\nOriginali, acquistati in outlet Nike Italia.`,
-  subito:(m,s,c,p,e)=>`Nike ${m} taglia ${s} – €${p}\n\nCondizioni: ${c}\n${e?e+"\n":""}\nOriginali outlet Nike Italia. Spedisco ovunque. Scrivi per info!`,
+const TEMPLATES={
+  vinted:(m,s,c,p,e,l)=>l==="fr"
+    ?`🔥 ${m} – Pointure ${s}\n\n✅ État: ${c}\n💶 Prix: €${p}\n\n${e?e+"\n\n":""}Achetés dans un outlet Nike officiel en Italie. 100% originaux.\n\n📦 Expédition rapide avec suivi.\n💬 Ouvert aux offres!\n\n#nike #${m.toLowerCase().replace(/\s+/g,"")} #sneakers #outlet`
+    :l==="en"
+    ?`🔥 ${m} – Size EU ${s}\n\n✅ Condition: ${c}\n💶 Price: €${p}\n\n${e?e+"\n\n":""}Bought at official Nike outlet in Italy. 100% authentic.\n\n📦 Fast shipping with tracking.\n💬 Open to offers!\n\n#nike #${m.toLowerCase().replace(/\s+/g,"")} #sneakers #outlet`
+    :`🔥 ${m} – Taglia ${s}\n\n✅ Condizione: ${c}\n💶 Prezzo: €${p}\n\n${e?e+"\n\n":""}Acquistati in outlet Nike ufficiale Italia. Originali 100%.\n\n📦 Spedizione rapida con tracking.\n💬 Aperto a offerte!\n\n#nike #${m.toLowerCase().replace(/\s+/g,"")} #sneakers #outlet`,
+  ebay:(m,s,c,p,e,l)=>l==="fr"
+    ?`Nike ${m} – Pointure EU ${s} – ${c}\n\nModèle: Nike ${m}\nPointure EU: ${s}\nÉtat: ${c}\n${e?"Notes: "+e+"\n":""}\n📦 Expédition avec suivi\n↩️ Retour accepté sous 30 jours\n\nOriginaux, achetés dans un outlet Nike en Italie.`
+    :l==="en"
+    ?`Nike ${m} – EU Size ${s} – ${c}\n\nModel: Nike ${m}\nEU Size: ${s}\nCondition: ${c}\n${e?"Notes: "+e+"\n":""}\n📦 Shipping with tracking\n↩️ Returns within 30 days\n\nAuthentic, bought at Nike outlet Italy.`
+    :`Nike ${m} – Taglia EU ${s} – ${c}\n\nModello: Nike ${m}\nTaglia EU: ${s}\nCondizione: ${c}\n${e?"Note: "+e+"\n":""}\n📦 Spedizione con tracking\n↩️ Reso entro 30 giorni\n\nOriginali, acquistati in outlet Nike Italia.`,
+  subito:(m,s,c,p,e,l)=>l==="fr"
+    ?`Nike ${m} pointure ${s} – €${p}\n\nÉtat: ${c}\n${e?e+"\n":""}\nOriginaux outlet Nike Italie. Expédition partout. Écrivez pour info!`
+    :l==="en"
+    ?`Nike ${m} size ${s} – €${p}\n\nCondition: ${c}\n${e?e+"\n":""}\nAuthentic Nike outlet Italy. Ship anywhere. Message for info!`
+    :`Nike ${m} taglia ${s} – €${p}\n\nCondizioni: ${c}\n${e?e+"\n":""}\nOriginali outlet Nike Italia. Spedisco ovunque. Scrivi per info!`,
 };
 
-const CONDITIONS = ["Nuovo","Come nuovo","Ottime condizioni","Buone condizioni"];
+function App(){
+  const [lang,setLang]=useState("it");
+  const [tab,setTab]=useState("calc");
+  const [buy,setBuy]=useState("");
+  const [sell,setSell]=useState("");
+  const [model,setModel]=useState("");
+  const [size,setSize]=useState("");
+  const [cond,setCond]=useState(0);
+  const [price,setPrice]=useState("");
+  const [extra,setExtra]=useState("");
+  const [plat,setPlat]=useState("vinted");
+  const [gen,setGen]=useState("");
+  const [copied,setCopied]=useState(false);
+  const [checks,setChecks]=useState({});
 
-function App() {
-  const [tab,setTab] = useState("calc");
-  const [buy,setBuy] = useState("");
-  const [sell,setSell] = useState("");
-  const [model,setModel] = useState("");
-  const [size,setSize] = useState("");
-  const [cond,setCond] = useState("Nuovo");
-  const [price,setPrice] = useState("");
-  const [extra,setExtra] = useState("");
-  const [plat,setPlat] = useState("vinted");
-  const [gen,setGen] = useState("");
-  const [copied,setCopied] = useState(false);
-
-  const b = parseFloat(buy)||0;
-  const s = parseFloat(sell)||0;
+  const t=LANGS[lang];
+  const b=parseFloat(buy)||0;
+  const s=parseFloat(sell)||0;
 
   function calc(p){
-    const fees = s*p.commission+p.fixed;
-    const profit = s-b-fees;
+    const fees=s*p.commission+p.fixed;
+    const profit=s-b-fees;
     return {profit:profit.toFixed(2),margin:((profit/b)*100).toFixed(1),fees:fees.toFixed(2)};
   }
 
   function generate(){
-    setGen(TEMPLATES[plat](model,size,cond,price,extra));
+    setGen(TEMPLATES[plat](model,size,t.conds[cond],price,extra,lang));
     setCopied(false);
   }
 
@@ -101,80 +189,91 @@ function App() {
     setTimeout(()=>setCopied(false),2000);
   }
 
-  return React.createElement("div",null,
-    React.createElement("div",{className:"header"},
-      React.createElement("div",null,
-        React.createElement("div",{className:"logo"},"SNEAK",React.createElement("span",null,"FLIP")),
-        React.createElement("div",{className:"tagline"},"Reseller Toolkit · Italia")
-      ),
-      React.createElement("div",{className:"swoosh"},"✔")
+  function toggleCheck(id,val){
+    setChecks(prev=>({...prev,[id]:val}));
+  }
+
+  const checkedKeys=Object.keys(checks).filter(k=>checks[k]!==undefined);
+  const allOk=checkedKeys.length>0&&checkedKeys.every(k=>checks[k]===true);
+  const anyWarn=checkedKeys.some(k=>checks[k]===false);
+
+  const e=React.createElement;
+
+  return e("div",null,
+    e("div",{className:"header"},
+      e("div",null,
+        e("div",{className:"logo"},"SNEAK",e("span",null,"FLIP")),
+        e("div",{className:"tagline"},t.tagline)
+      )
     ),
-    React.createElement("div",{className:"tabs"},
-      React.createElement("button",{className:"tab "+(tab==="calc"?"active":""),onClick:()=>setTab("calc")},"📊 Margine"),
-      React.createElement("button",{className:"tab "+(tab==="listing"?"active":""),onClick:()=>setTab("listing")},"📝 Annuncio")
+    e("div",{className:"lang-bar"},
+      ["it","en","fr"].map(l=>e("button",{key:l,className:"lb "+(lang===l?"active":""),onClick:()=>{setLang(l);setGen("");setCond(0);}},l.toUpperCase()))
     ),
-    React.createElement("div",{className:"body"},
-      tab==="calc" ? React.createElement("div",null,
-        React.createElement("div",{className:"sec",style:{marginTop:8}},"Prezzi"),
-        React.createElement("div",{className:"row"},
-          React.createElement("div",null,
-            React.createElement("label",{className:"label"},"Acquisto (€)"),
-            React.createElement("input",{className:"inp",type:"number",placeholder:"65",value:buy,onChange:e=>setBuy(e.target.value)})
-          ),
-          React.createElement("div",null,
-            React.createElement("label",{className:"label"},"Vendita (€)"),
-            React.createElement("input",{className:"inp",type:"number",placeholder:"120",value:sell,onChange:e=>setSell(e.target.value)})
-          )
+    e("div",{className:"tabs"},
+      e("button",{className:"tab "+(tab==="calc"?"active":""),onClick:()=>setTab("calc")},t.tab1),
+      e("button",{className:"tab "+(tab==="listing"?"active":""),onClick:()=>setTab("listing")},t.tab2),
+      e("button",{className:"tab "+(tab==="verify"?"active":""),onClick:()=>setTab("verify")},t.tab3)
+    ),
+    e("div",{className:"body"},
+      tab==="calc"?e("div",null,
+        e("div",{className:"sec",style:{marginTop:8}},t.prezzi),
+        e("div",{className:"row"},
+          e("div",null,e("label",{className:"label"},t.acquisto),e("input",{className:"inp",type:"number",placeholder:"65",value:buy,onChange:ev=>setBuy(ev.target.value)})),
+          e("div",null,e("label",{className:"label"},t.vendita),e("input",{className:"inp",type:"number",placeholder:"120",value:sell,onChange:ev=>setSell(ev.target.value)}))
         ),
-        React.createElement("div",{className:"note"},"* Commissioni incluse nel calcolo"),
-        React.createElement("div",{className:"sec"},"Profitto per piattaforma"),
+        e("div",{className:"note"},t.comm),
+        e("div",{className:"sec"},t.profitto),
         PLATFORMS.map(p=>{
           const {profit,margin,fees}=calc(p);
           const n=parseFloat(profit);
-          const cls=n>0?"pos":"neg";
           const has=b>0&&s>0;
-          return React.createElement("div",{className:"card "+(has&&n>0?"pos":has&&n<0?"neg":""),key:p.id},
-            React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:p.color}}),
-            React.createElement("div",null,
-              React.createElement("div",{className:"pname"},p.name),
-              has&&React.createElement("div",{className:"note",style:{marginBottom:0,marginTop:4}},"Fees: €"+fees)
+          return e("div",{className:"card "+(has&&n>0?"pos":""),key:p.id},
+            e("div",{style:{width:10,height:10,borderRadius:"50%",background:p.color}}),
+            e("div",null,
+              e("div",{className:"pname"},p.name),
+              has&&e("div",{className:"note",style:{marginBottom:0,marginTop:4}},t.fees+": €"+fees)
             ),
-            React.createElement("div",{className:"profit"},
-              has ? React.createElement("div",null,
-                React.createElement("div",{className:"pnum "+(n>0?"pos-t":n<0?"neg-t":"zero-t")},(n>0?"+":"")+"€"+profit),
-                React.createElement("div",{className:"psub"},margin+"% margine")
-              ) : React.createElement("div",{className:"psub"},"—")
+            e("div",{className:"profit"},
+              has?e("div",null,
+                e("div",{className:"pnum "+(n>0?"pos-t":"neg-t")},(n>0?"+":"")+"€"+profit),
+                e("div",{className:"psub"},margin+"%")
+              ):e("div",{className:"psub"},"—")
             )
           );
         })
-      ) : React.createElement("div",null,
-        React.createElement("div",{className:"sec",style:{marginTop:8}},"Prodotto"),
-        React.createElement("label",{className:"label"},"Modello Nike"),
-        React.createElement("input",{className:"inp",placeholder:"es. Air Max 90, Shox TL",value:model,onChange:e=>setModel(e.target.value)}),
-        React.createElement("div",{className:"row"},
-          React.createElement("div",null,
-            React.createElement("label",{className:"label"},"Taglia EU"),
-            React.createElement("input",{className:"inp",placeholder:"42",value:size,onChange:e=>setSize(e.target.value)})
+      ):tab==="listing"?e("div",null,
+        e("div",{className:"sec",style:{marginTop:8}},t.prodotto),
+        e("label",{className:"label"},t.modello),
+        e("input",{className:"inp",placeholder:"es. Air Max 90",value:model,onChange:ev=>setModel(ev.target.value)}),
+        e("div",{className:"row"},
+          e("div",null,e("label",{className:"label"},t.taglia),e("input",{className:"inp",placeholder:"42",value:size,onChange:ev=>setSize(ev.target.value)})),
+          e("div",null,e("label",{className:"label"},t.prezzo),e("input",{className:"inp",placeholder:"110",value:price,onChange:ev=>setPrice(ev.target.value)}))
+        ),
+        e("label",{className:"label"},t.cond),
+        e("select",{className:"inp",value:cond,onChange:ev=>setCond(parseInt(ev.target.value))},
+          t.conds.map((c,i)=>e("option",{key:i,value:i},c))
+        ),
+        e("label",{className:"label"},t.note),
+        e("textarea",{className:"inp",placeholder:"...",value:extra,onChange:ev=>setExtra(ev.target.value)}),
+        e("div",{className:"sec"},t.piatt),
+        e("div",{className:"ptabs"},PLATFORMS.map(p=>e("button",{key:p.id,className:"ptab "+(plat===p.id?"active":""),onClick:()=>{setPlat(p.id);setGen("");}},p.name))),
+        e("button",{className:"btn",onClick:generate,disabled:!model||!size||!price},t.genera),
+        e("div",{className:"sec"},t.output),
+        e("div",{className:"output"},gen||e("div",{className:"empty"},t.empty)),
+        gen&&e("button",{className:"copy",onClick:copy},copied?t.copiato:t.copia)
+      ):e("div",null,
+        e("div",{className:"sec",style:{marginTop:8}},t.checkTitle),
+        e("div",{className:"note",style:{marginBottom:16}},t.checkSub),
+        checkedKeys.length>0&&e("div",{className:"verdict "+(anyWarn?"warn":"ok")},anyWarn?t.verdictWarn:t.verdictOk),
+        t.checks.map(c=>e("div",{key:c.id,className:"check-item "+(checks[c.id]===true?"ok":checks[c.id]===false?"warn":"")},
+          e("div",{className:"check-title"},c.title),
+          e("div",{className:"check-desc"},c.desc),
+          e("div",{style:{display:"flex",gap:8,marginTop:10}},
+            e("button",{style:{flex:1,padding:"8px",background:checks[c.id]===true?"#22c55e":"#f0f0f0",color:checks[c.id]===true?"#fff":"#888",border:"none",fontFamily:"'Oswald',sans-serif",fontSize:"11px",letterSpacing:"1px",cursor:"pointer"},onClick:()=>toggleCheck(c.id,true)},"✓ OK"),
+            e("button",{style:{flex:1,padding:"8px",background:checks[c.id]===false?"#E5202E":"#f0f0f0",color:checks[c.id]===false?"#fff":"#888",border:"none",fontFamily:"'Oswald',sans-serif",fontSize:"11px",letterSpacing:"1px",cursor:"pointer"},onClick:()=>toggleCheck(c.id,false)},"✗ "+( lang==="fr"?"Suspect":lang==="en"?"Suspicious":"Sospetto")}
           ),
-          React.createElement("div",null,
-            React.createElement("label",{className:"label"},"Prezzo (€)"),
-            React.createElement("input",{className:"inp",placeholder:"110",value:price,onChange:e=>setPrice(e.target.value)})
-          )
-        ),
-        React.createElement("label",{className:"label"},"Condizioni"),
-        React.createElement("select",{className:"inp",value:cond,onChange:e=>setCond(e.target.value)},
-          CONDITIONS.map(c=>React.createElement("option",{key:c},c))
-        ),
-        React.createElement("label",{className:"label"},"Note extra (opzionale)"),
-        React.createElement("textarea",{className:"inp",placeholder:"es. Scatola inclusa...",value:extra,onChange:e=>setExtra(e.target.value)}),
-        React.createElement("div",{className:"sec"},"Piattaforma"),
-        React.createElement("div",{className:"ptabs"},
-          PLATFORMS.map(p=>React.createElement("button",{key:p.id,className:"ptab "+(plat===p.id?"active":""),onClick:()=>{setPlat(p.id);setGen("");}},p.name))
-        ),
-        React.createElement("button",{className:"btn",onClick:generate,disabled:!model||!size||!price},"Genera annuncio"),
-        React.createElement("div",{className:"sec"},"Output"),
-        React.createElement("div",{className:"output"},gen||React.createElement("div",{className:"empty"},"L'annuncio apparirà qui →")),
-        gen&&React.createElement("button",{className:"copy",onClick:copy},copied?"✓ Copiato!":"Copia testo")
+          checks[c.id]!==undefined&&e("div",{className:"check-status "+(checks[c.id]?"ok":"warn")},checks[c.id]?c.ok:c.warn)
+        ))
       )
     )
   );
